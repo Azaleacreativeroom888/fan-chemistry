@@ -3,469 +3,402 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>日誌 ― 妖怪帖</title>
+<title>元素手帖 | 化学学習記録サイト</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;700;800&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;800&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg-navy:#0b1220;
-    --bg-navy-mid:#121e35;
-    --box-navy:#1e2d4a;
-    --box-navy-soft:#182643;
-    --box-border:#33456b;
-    --ivory:#f2efe3;
-    --ivory-dim:#cdc9ba;
-    --red:#b23b3b;
-    --red-bright:#d1504f;
-    --muted:#8b96b3;
+    --bg: #c7d94a;
+    --bg-deep: #b0c235;
+    --brown-deep: #5a3820;
+    --brown-mid: #7c4e2c;
+    --brown-light: #c99a63;
+    --paper: #f6efdc;
+    --paper-dim: #ece0c4;
+    --ink: #2c1c10;
+    --ink-soft: #4a3521;
   }
 
-  *{box-sizing:border-box;}
+  *{ box-sizing: border-box; }
 
-  html{scroll-behavior:smooth;}
+  html{ scroll-behavior: smooth; }
 
   body{
-    margin:0;
-    background:var(--bg-navy);
-    color:var(--ivory);
-    font-family:"Zen Kaku Gothic New", sans-serif;
-    font-weight:400;
-    line-height:1.9;
+    margin: 0;
+    background:
+      linear-gradient(var(--bg), var(--bg)),
+      repeating-linear-gradient(0deg, rgba(90,56,32,0.05) 0, rgba(90,56,32,0.05) 1px, transparent 1px, transparent 32px),
+      repeating-linear-gradient(90deg, rgba(90,56,32,0.05) 0, rgba(90,56,32,0.05) 1px, transparent 1px, transparent 32px);
+    color: var(--ink);
+    font-family: 'Shippori Mincho', serif;
+    line-height: 1.9;
+    -webkit-font-smoothing: antialiased;
   }
 
-  h1,h2,h3,.brush{
-    font-family:"Shippori Mincho", serif;
+  a{ color: inherit; }
+
+  .mono{
+    font-family: 'JetBrains Mono', monospace;
   }
 
-  a{color:inherit;}
+  /* ---------- Header ---------- */
 
-  ::selection{
-    background:var(--red);
-    color:var(--ivory);
-  }
-
-  /* ---------- ナビゲーション ---------- */
   header{
-    position:sticky;
-    top:0;
-    z-index:50;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:18px 6vw;
-    background:rgba(11,18,32,0.86);
-    backdrop-filter:blur(6px);
-    border-bottom:1px solid var(--box-border);
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: var(--brown-deep);
+    border-bottom: 3px solid var(--ink);
+    padding: 14px 6vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
   }
 
-  .site-mark{
-    display:flex;
-    align-items:baseline;
-    gap:10px;
-    font-family:"Shippori Mincho", serif;
-    font-size:1.25rem;
-    font-weight:700;
-    letter-spacing:0.08em;
-    text-decoration:none;
-    color:var(--ivory);
+  .brand{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--paper);
+    text-decoration: none;
   }
 
-  .site-mark span{
-    color:var(--red-bright);
-    font-size:0.95rem;
-    font-weight:400;
+  .brand-tile{
+    width: 34px;
+    height: 34px;
+    border: 2px solid var(--paper);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 800;
+    font-size: 15px;
   }
 
-  nav ul{
-    list-style:none;
-    display:flex;
-    gap:2.2rem;
-    margin:0;
-    padding:0;
+  .brand-name{
+    font-size: 19px;
+    letter-spacing: 0.06em;
+  }
+
+  nav{
+    display: flex;
+    gap: 4px;
   }
 
   nav a{
-    text-decoration:none;
-    font-size:0.95rem;
-    color:var(--ivory-dim);
-    position:relative;
-    padding-bottom:4px;
-    transition:color 0.25s ease;
+    text-decoration: none;
+    color: var(--paper);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    padding: 7px 14px;
+    border: 1px solid rgba(246,239,220,0.35);
+    border-radius: 3px;
+    transition: background 0.15s ease, border-color 0.15s ease;
   }
 
-  nav a::after{
-    content:"";
-    position:absolute;
-    left:0;
-    bottom:0;
-    width:0%;
-    height:1px;
-    background:var(--red-bright);
-    transition:width 0.3s ease;
+  nav a:hover{
+    background: rgba(246,239,220,0.12);
+    border-color: var(--paper);
   }
 
-  nav a:hover,
-  nav a:focus-visible{
-    color:var(--ivory);
+  nav a.current{
+    background: var(--paper);
+    color: var(--brown-deep);
+    border-color: var(--paper);
   }
 
-  nav a:hover::after,
-  nav a:focus-visible::after{
-    width:100%;
+  /* ---------- Hero ---------- */
+
+  .hero{
+    padding: 76px 6vw 60px;
+    display: flex;
+    justify-content: center;
   }
 
-  nav a.active{
-    color:var(--ivory);
+  .element-tile{
+    background: var(--paper);
+    border: 3px solid var(--brown-deep);
+    border-radius: 6px;
+    box-shadow: 8px 8px 0 var(--brown-mid);
+    width: min(560px, 100%);
+    padding: 28px 34px 30px;
+    text-align: center;
   }
 
-  nav a.active::after{
-    width:100%;
-    background:var(--red);
+  .element-tile .no{
+    text-align: left;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--ink-soft);
+    letter-spacing: 0.08em;
   }
 
-  /* ---------- ページヘッダー ---------- */
-  .page-hero{
-    position:relative;
-    padding:9vh 6vw 6vh;
-    background:
-      radial-gradient(ellipse at 82% 0%, rgba(178,59,59,0.10), transparent 45%),
-      linear-gradient(180deg, var(--bg-navy) 0%, var(--bg-navy-mid) 100%);
-    overflow:hidden;
+  .element-tile .symbol{
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 800;
+    font-size: clamp(72px, 16vw, 108px);
+    line-height: 1;
+    color: var(--brown-deep);
+    margin: 6px 0 10px;
   }
 
-  .page-hero .ghost-kanji{
-    position:absolute;
-    right:-6vw;
-    top:-10vh;
-    font-size:min(38vw, 460px);
-    font-weight:800;
-    color:transparent;
-    -webkit-text-stroke:1px rgba(178,59,59,0.14);
-    line-height:1;
-    pointer-events:none;
-    user-select:none;
+  .element-tile .name{
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
   }
 
-  .page-hero-inner{
-    position:relative;
-    z-index:2;
-    max-width:640px;
+  .element-tile .tagline{
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--brown-light);
+    font-size: 14.5px;
+    color: var(--ink-soft);
   }
 
-  .page-eyebrow{
-    display:inline-block;
-    writing-mode:vertical-rl;
-    font-family:"Shippori Mincho", serif;
-    font-size:0.9rem;
-    letter-spacing:0.4em;
-    color:var(--red-bright);
-    height:90px;
-    margin-bottom:1rem;
+  /* ---------- Intro ---------- */
+
+  .intro{
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 0 6vw 64px;
+    text-align: left;
   }
 
-  .page-hero h1{
-    font-size:clamp(2.1rem, 5.5vw, 3.1rem);
-    margin:0 0 0.6rem;
-    font-weight:800;
-    letter-spacing:0.05em;
+  .intro p{
+    font-size: 16px;
+    color: var(--ink-soft);
   }
 
-  .page-hero p.lead{
-    font-size:0.98rem;
-    color:var(--ivory-dim);
-    max-width:34em;
-    margin:0;
+  .intro p + p{ margin-top: 1.1em; }
+
+  /* ---------- Page tiles ---------- */
+
+  .tiles-section{
+    background: var(--bg-deep);
+    border-top: 3px solid var(--brown-deep);
+    border-bottom: 3px solid var(--brown-deep);
+    padding: 54px 6vw 60px;
   }
 
-  /* ---------- フィード ---------- */
-  .feed{
-    max-width:680px;
-    margin:0 auto;
-    padding:4rem 6vw 7rem;
+  .tiles-section h2{
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 34px;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--brown-deep);
+    letter-spacing: 0.04em;
   }
 
-  .entry{
-    display:flex;
-    gap:1.3rem;
-    padding-bottom:2.4rem;
-    position:relative;
+  .tiles{
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
   }
 
-  .entry::before{
-    content:"";
-    position:absolute;
-    left:9px;
-    top:26px;
-    bottom:0;
-    width:1px;
-    background:var(--box-border);
+  .tile{
+    display: block;
+    text-decoration: none;
+    background: var(--paper);
+    border: 2px solid var(--brown-deep);
+    border-radius: 5px;
+    padding: 18px 18px 20px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    box-shadow: 4px 4px 0 rgba(90,56,32,0.35);
   }
 
-  .entry:last-child::before{display:none;}
-
-  .entry-marker{
-    flex:none;
-    width:19px;
-    height:19px;
-    border-radius:50%;
-    margin-top:6px;
-    background:radial-gradient(circle at 35% 30%, var(--red-bright), var(--red) 70%);
-    box-shadow:0 0 10px rgba(178,59,59,0.35);
+  .tile:hover{
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 rgba(90,56,32,0.45);
   }
 
-  .entry-body{
-    flex:1;
-    background:var(--box-navy);
-    border:1px solid var(--box-border);
-    border-left:3px solid var(--red);
-    padding:1.5rem 1.7rem;
+  .tile .tile-top{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--ink-soft);
+    font-size: 12px;
   }
 
-  .entry-date{
-    display:block;
-    font-family:"Shippori Mincho", serif;
-    font-size:0.85rem;
-    letter-spacing:0.06em;
-    color:var(--red-bright);
-    margin-bottom:0.7rem;
+  .tile .tile-sym{
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 800;
+    font-size: 36px;
+    color: var(--brown-deep);
+    margin: 8px 0 4px;
   }
 
-  .entry-body p{
-    margin:0;
-    color:var(--ivory-dim);
-    font-size:0.98rem;
+  .tile .tile-name{
+    font-weight: 600;
+    font-size: 15.5px;
+    margin-bottom: 8px;
   }
 
-  .entry-body p + p{margin-top:0.7rem;}
+  .tile .tile-desc{
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    line-height: 1.7;
+  }
 
-  /* ---------- フッター ---------- */
+  /* ---------- Footer ---------- */
+
   footer{
-    border-top:1px solid var(--box-border);
-    background:var(--bg-navy-mid);
-    padding:4.5rem 6vw 3rem;
+    padding: 50px 6vw 40px;
+    background: var(--brown-deep);
+    color: var(--paper-dim);
   }
 
   .footer-grid{
-    max-width:1080px;
-    margin:0 auto;
-    display:grid;
-    grid-template-columns:1.2fr 1fr;
-    gap:3rem;
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 40px;
   }
 
-  .footer-grid h4{
-    font-family:"Shippori Mincho", serif;
-    font-size:1.05rem;
-    margin:0 0 1rem;
-    color:var(--ivory);
+  footer h3{
+    font-size: 14px;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.06em;
+    color: var(--brown-light);
+    margin: 0 0 14px;
   }
 
   .contact-form{
-    display:flex;
-    flex-direction:column;
-    gap:0.8rem;
-    max-width:420px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 
   .contact-form input,
   .contact-form textarea{
-    background:var(--box-navy-soft);
-    border:1px solid var(--box-border);
-    color:var(--ivory);
-    padding:0.7em 0.9em;
-    font-family:inherit;
-    font-size:0.92rem;
+    background: rgba(246,239,220,0.08);
+    border: 1px solid rgba(246,239,220,0.3);
+    border-radius: 3px;
+    padding: 9px 11px;
+    color: var(--paper);
+    font-family: 'Shippori Mincho', serif;
+    font-size: 14px;
   }
 
-  .contact-form textarea{resize:vertical; min-height:100px;}
-
-  .contact-form input:focus,
-  .contact-form textarea:focus,
-  .contact-form input:focus-visible,
-  .contact-form textarea:focus-visible{
-    outline:1px solid var(--red-bright);
-  }
+  .contact-form textarea{ resize: vertical; min-height: 70px; }
 
   .contact-form button{
-    align-self:flex-start;
-    background:transparent;
-    border:1px solid var(--red-bright);
-    color:var(--ivory);
-    padding:0.7em 1.8em;
-    font-family:inherit;
-    font-size:0.92rem;
-    cursor:pointer;
-    transition:background 0.3s ease;
+    align-self: flex-start;
+    background: var(--brown-light);
+    color: var(--brown-deep);
+    border: none;
+    border-radius: 3px;
+    padding: 9px 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s ease;
   }
 
-  .contact-form button:hover,
-  .contact-form button:focus-visible{
-    background:var(--red);
+  .contact-form button:hover{ background: #dcb27f; }
+
+  .notice{
+    font-size: 12.5px;
+    line-height: 1.8;
+    color: rgba(246,239,220,0.65);
+    margin: 0 0 20px;
   }
 
-  .hub-links ul{
-    list-style:none;
-    margin:0 0 1.6rem;
-    padding:0;
-    display:flex;
-    flex-direction:column;
-    gap:0.6rem;
+  .hub-link{
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    color: var(--paper);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(246,239,220,0.5);
+    padding-bottom: 1px;
   }
 
-  .hub-links a{
-    text-decoration:none;
-    color:var(--ivory-dim);
-    font-size:0.92rem;
-    border-bottom:1px dotted transparent;
-    transition:border-color 0.25s ease, color 0.25s ease;
+  .foot-bottom{
+    max-width: 900px;
+    margin: 34px auto 0;
+    padding-top: 18px;
+    border-top: 1px solid rgba(246,239,220,0.2);
+    font-size: 11.5px;
+    font-family: 'JetBrains Mono', monospace;
+    color: rgba(246,239,220,0.5);
+    text-align: center;
   }
 
-  .hub-links a:hover,
-  .hub-links a:focus-visible{
-    color:var(--ivory);
-    border-color:var(--red-bright);
-  }
-
-  .ai-notice{
-    font-size:0.78rem;
-    color:var(--muted);
-    line-height:1.8;
-    border-top:1px solid var(--box-border);
-    margin-top:2.4rem;
-    padding-top:1.6rem;
-    max-width:1080px;
-    margin-left:auto;
-    margin-right:auto;
-  }
-
-  .copyright{
-    text-align:center;
-    font-size:0.78rem;
-    color:var(--muted);
-    margin-top:1.6rem;
-  }
-
-  /* ---------- レスポンシブ ---------- */
-  @media (max-width: 860px){
-    .footer-grid{grid-template-columns:1fr;}
-  }
-
-  @media (max-width: 640px){
-    header{padding:14px 5vw;}
-    nav ul{gap:1.1rem;}
-    nav a{font-size:0.85rem;}
-    .page-hero{padding:12vh 6vw 5vh;}
-    .page-eyebrow{display:none;}
-    .feed{padding:3rem 6vw 5rem;}
-    .entry{gap:0.9rem;}
-    .entry-body{padding:1.2rem 1.3rem;}
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    html{scroll-behavior:auto;}
-    nav a::after, .contact-form button{transition:none;}
+  @media (max-width: 720px){
+    .tiles{ grid-template-columns: 1fr; }
+    .footer-grid{ grid-template-columns: 1fr; }
+    nav{ order: 3; width: 100%; justify-content: center; flex-wrap: wrap; }
   }
 </style>
 </head>
 <body>
 
 <header>
-  <a class="site-mark" href="index.html">妖怪帖<span>―夜に棲むものたちの記録―</span></a>
+  <a class="brand" href="index.html">
+    <span class="brand-tile">Gt</span>
+    <span class="brand-name">元素手帖</span>
+  </a>
   <nav>
-    <ul>
-      <li><a href="index.html">ホーム</a></li>
-      <li><a href="blog.html" class="active">日誌</a></li>
-      <li><a href="gallery.html">ギャラリー</a></li>
-      <li><a href="about.html">about</a></li>
-    </ul>
+    <a class="current" href="index.html">index</a>
+    <a href="blog.html">blog</a>
+    <a href="column.html">column</a>
+    <a href="about.html">about</a>
   </nav>
 </header>
 
-<section class="page-hero">
-  <div class="ghost-kanji" aria-hidden="true">怪</div>
-  <div class="page-hero-inner">
-    <span class="page-eyebrow">覚え書き</span>
-    <h1>日誌</h1>
-    <p class="lead">
-      調べ物をした日の記録を、日付と短い文章だけで積み重ねていきます。
-    </p>
+<section class="hero">
+  <div class="element-tile">
+    <div class="no">No. 01</div>
+    <div class="symbol">Gt</div>
+    <div class="name">元素手帖</div>
+    <div class="tagline">化学を、一から積み上げていく記録</div>
   </div>
 </section>
 
-<section class="feed">
+<section class="intro">
+  <p>高校化学からやり直して、化学というものの見方を少しずつ自分のものにしていく過程を記録するサイトです。理論も暗記も苦手なところが多いので、わかったことも、わからなかったことも、なるべくそのまま残していきます。</p>
+  <p>周期表や元素記号をモチーフにしているのは、ひとつひとつの知識を、名前と場所のあるタイルのように積み上げていきたいから。派手な進歩はなくても、積み重ねていけば手帖は少しずつ厚くなっていくはずです。</p>
+</section>
 
-  <article class="entry">
-    <span class="entry-marker" aria-hidden="true"></span>
-    <div class="entry-body">
-      <span class="entry-date">2026.09.08</span>
-      <p>「ぬらりひょん」の伝承地による姿の違いをまとめる。地域ごとに老爺だったり異形だったりして面白い。</p>
-    </div>
-  </article>
-
-  <article class="entry">
-    <span class="entry-marker" aria-hidden="true"></span>
-    <div class="entry-body">
-      <span class="entry-date">2026.09.05</span>
-      <p>鳥山石燕の画集を図書館で借りてきた。今日はひたすら模写のためのラフを取る一日。</p>
-    </div>
-  </article>
-
-  <article class="entry">
-    <span class="entry-marker" aria-hidden="true"></span>
-    <div class="entry-body">
-      <span class="entry-date">2026.09.02</span>
-      <p>座敷童子について調べる。家に富をもたらす一方で、去ってしまうと家が衰えるという話が多い。</p>
-      <p>怖さより、どこか切ない話が多いことに気づく。</p>
-    </div>
-  </article>
-
-  <article class="entry">
-    <span class="entry-marker" aria-hidden="true"></span>
-    <div class="entry-body">
-      <span class="entry-date">2026.08.29</span>
-      <p>百鬼夜行絵巻の構成をメモ。行列の順番や描かれ方に、当時の分類の考え方が見えて興味深い。</p>
-    </div>
-  </article>
-
-  <article class="entry">
-    <span class="entry-marker" aria-hidden="true"></span>
-    <div class="entry-body">
-      <span class="entry-date">2026.08.24</span>
-      <p>河童の起源説をいくつか比較。水神信仰との関わりが強い地域と、単なる妖怪譚として残る地域があるらしい。</p>
-    </div>
-  </article>
-
-  <article class="entry">
-    <span class="entry-marker" aria-hidden="true"></span>
-    <div class="entry-body">
-      <span class="entry-date">2026.08.20</span>
-      <p>今日は資料整理の日。集めた妖怪の一覧を地域別に並べ直した。次はこれを元にラフを描いていく。</p>
-    </div>
-  </article>
-
-  <article class="entry">
-    <span class="entry-marker" aria-hidden="true"></span>
-    <div class="entry-body">
-      <span class="entry-date">2026.08.15</span>
-      <p>雪女の話を東北のものと中部のもので読み比べる。優しさと恐ろしさの配分がかなり違って驚いた。</p>
-    </div>
-  </article>
-
-  <article class="entry">
-    <span class="entry-marker" aria-hidden="true"></span>
-    <div class="entry-body">
-      <span class="entry-date">2026.08.10</span>
-      <p>このサイトの構成を考え始める。日誌・ギャラリー・aboutの三本柱でいく方針に決めた。</p>
-    </div>
-  </article>
-
+<section class="tiles-section">
+  <h2>このサイトでやっていくこと</h2>
+  <div class="tiles">
+    <a class="tile" href="blog.html">
+      <div class="tile-top"><span>No. 02</span><span>page</span></div>
+      <div class="tile-sym">Bl</div>
+      <div class="tile-name">学習ログ</div>
+      <div class="tile-desc">その日に勉強した内容を、日付とひとことだけで残していく記録帳。</div>
+    </a>
+    <a class="tile" href="column.html">
+      <div class="tile-top"><span>No. 03</span><span>page</span></div>
+      <div class="tile-sym">Co</div>
+      <div class="tile-name">四コマ・小論</div>
+      <div class="tile-desc">化学にまつわる漫画やイラスト、軽い読み物をまとめる棚。</div>
+    </a>
+    <a class="tile" href="about.html">
+      <div class="tile-top"><span>No. 04</span><span>page</span></div>
+      <div class="tile-sym">Ab</div>
+      <div class="tile-name">手帖について</div>
+      <div class="tile-desc">このサイトを作った理由と、これから目指していきたいところ。</div>
+    </a>
+  </div>
 </section>
 
 <footer>
   <div class="footer-grid">
     <div>
-      <h4>お問い合わせ</h4>
+      <h3>CONTACT</h3>
       <form class="contact-form" action="https://formspree.io/f/maqvpvoz" method="POST">
         <input type="text" name="name" placeholder="お名前" required>
         <input type="email" name="email" placeholder="メールアドレス" required>
@@ -473,18 +406,14 @@
         <button type="submit">送信する</button>
       </form>
     </div>
-    <div class="hub-links">
-      <h4>Azalea Creative Room</h4>
-      <ul>
-        <li><a href="https://azalea72.github.io/">Azalea Creative Room トップ</a></li>
-        <li><a href="index.html">妖怪帖 ホーム</a></li>
-      </ul>
+    <div>
+      <h3>NOTICE</h3>
+      <p class="notice">本サイトに掲載する文章・イラスト・漫画等のコンテンツについて、生成AIモデルの学習データとしての使用を固く禁じます。</p>
+      <h3>LINK</h3>
+      <a class="hub-link" href="#">Azalea Creative Room</a>
     </div>
   </div>
-  <p class="ai-notice">
-    当サイトに掲載しているイラスト・漫画・文章の無断転載、およびAIの学習データとしての利用を禁じます。
-  </p>
-  <p class="copyright">© 妖怪帖</p>
+  <div class="foot-bottom">© 元素手帖 — Azalea Creative Room</div>
 </footer>
 
 </body>
