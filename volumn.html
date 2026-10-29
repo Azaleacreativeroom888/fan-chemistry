@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>四コマ・小論 | 元素手帖</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;800&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #c7d94a;
+    --bg-deep: #b0c235;
+    --brown-deep: #5a3820;
+    --brown-mid: #7c4e2c;
+    --brown-light: #c99a63;
+    --paper: #f6efdc;
+    --paper-dim: #ece0c4;
+    --ink: #2c1c10;
+    --ink-soft: #4a3521;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin: 0;
+    background:
+      linear-gradient(var(--bg), var(--bg)),
+      repeating-linear-gradient(0deg, rgba(90,56,32,0.05) 0, rgba(90,56,32,0.05) 1px, transparent 1px, transparent 32px),
+      repeating-linear-gradient(90deg, rgba(90,56,32,0.05) 0, rgba(90,56,32,0.05) 1px, transparent 1px, transparent 32px);
+    color: var(--ink);
+    font-family: 'Shippori Mincho', serif;
+    line-height: 1.9;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a{ color: inherit; }
+
+  /* ---------- Header (shared) ---------- */
+
+  header{
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: var(--brown-deep);
+    border-bottom: 3px solid var(--ink);
+    padding: 14px 6vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .brand{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--paper);
+    text-decoration: none;
+  }
+
+  .brand-tile{
+    width: 34px;
+    height: 34px;
+    border: 2px solid var(--paper);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 800;
+    font-size: 15px;
+  }
+
+  .brand-name{
+    font-size: 19px;
+    letter-spacing: 0.06em;
+  }
+
+  nav{
+    display: flex;
+    gap: 4px;
+  }
+
+  nav a{
+    text-decoration: none;
+    color: var(--paper);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    padding: 7px 14px;
+    border: 1px solid rgba(246,239,220,0.35);
+    border-radius: 3px;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+
+  nav a:hover{
+    background: rgba(246,239,220,0.12);
+    border-color: var(--paper);
+  }
+
+  nav a.current{
+    background: var(--paper);
+    color: var(--brown-deep);
+    border-color: var(--paper);
+  }
+
+  /* ---------- Page head ---------- */
+
+  .page-head{
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 56px 6vw 30px;
+    text-align: center;
+  }
+
+  .eyebrow-tile{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--paper);
+    border: 2px solid var(--brown-deep);
+    border-radius: 4px;
+    padding: 6px 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--brown-deep);
+    box-shadow: 3px 3px 0 var(--brown-mid);
+  }
+
+  .page-head h1{
+    font-size: 26px;
+    margin: 18px 0 10px;
+    letter-spacing: 0.04em;
+  }
+
+  .page-head p{
+    font-size: 14.5px;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- Sections ---------- */
+
+  .section{
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 30px 6vw 20px;
+  }
+
+  .section-title{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 22px;
+    font-size: 19px;
+    color: var(--brown-deep);
+  }
+
+  .section-title .tag{
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 800;
+    font-size: 14px;
+    border: 2px solid var(--brown-deep);
+    border-radius: 4px;
+    padding: 2px 9px;
+    background: var(--paper);
+  }
+
+  /* ---------- Report link box ---------- */
+
+  .report-link{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    text-decoration: none;
+    background: var(--paper);
+    border: 3px solid var(--brown-deep);
+    border-radius: 6px;
+    padding: 18px 22px;
+    box-shadow: 6px 6px 0 var(--brown-mid);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .report-link:hover{
+    transform: translate(-2px, -2px);
+    box-shadow: 8px 8px 0 var(--brown-mid);
+  }
+
+  .report-tile{
+    flex: none;
+    width: 86px;
+    border: 2px solid var(--brown-deep);
+    border-radius: 4px;
+    text-align: center;
+    padding: 6px 4px 8px;
+    background: var(--paper-dim);
+  }
+
+  .report-tile .r-no{
+    text-align: left;
+    padding-left: 4px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    color: var(--ink-soft);
+  }
+
+  .report-tile .r-sym{
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 800;
+    font-size: 34px;
+    line-height: 1.1;
+    color: var(--brown-deep);
+  }
+
+  .report-body .r-label{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--brown-mid);
+    letter-spacing: 0.04em;
+  }
+
+  .report-body .r-title{
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--brown-deep);
+    letter-spacing: 0.04em;
+    margin: 0;
+  }
+
+  .report-body .r-desc{
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    margin: 2px 0 0;
+    line-height: 1.7;
+  }
+
+  .report-arrow{
+    margin-left: auto;
+    flex: none;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--brown-deep);
+  }
+
+  /* ---------- Gallery shelf ---------- */
+
+  .shelf{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+
+  .work{
+    background: var(--paper);
+    border: 2px solid var(--brown-deep);
+    border-radius: 5px;
+    padding: 12px 12px 14px;
+    box-shadow: 4px 4px 0 rgba(90,56,32,0.3);
+  }
+
+  .work .thumb{
+    aspect-ratio: 4 / 3;
+    border: 1.5px dashed var(--brown-light);
+    background: var(--paper-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--brown-mid);
+    text-align: center;
+    padding: 8px;
+  }
+
+  .work .thumb img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .work .w-title{
+    margin-top: 10px;
+    font-weight: 600;
+    font-size: 14.5px;
+  }
+
+  .work .w-meta{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    color: var(--brown-mid);
+  }
+
+  /* 4-koma */
+
+  .koma-wrap{
+    margin-top: 26px;
+    background: var(--paper);
+    border: 2px solid var(--brown-deep);
+    border-radius: 5px;
+    padding: 18px 20px 20px;
+    box-shadow: 4px 4px 0 rgba(90,56,32,0.3);
+  }
+
+  .koma-head{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid var(--brown-light);
+    padding-bottom: 8px;
+    margin-bottom: 14px;
+  }
+
+  .koma-head .k-title{
+    font-weight: 600;
+    font-size: 15.5px;
+  }
+
+  .koma-head .k-meta{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    color: var(--brown-mid);
+  }
+
+  .koma-panels{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+
+  .koma-panels .panel{
+    aspect-ratio: 3 / 4;
+    border: 1.5px dashed var(--brown-light);
+    background: var(--paper-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--brown-mid);
+  }
+
+  /* ---------- Essays ---------- */
+
+  .essays{
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .essay{
+    background: var(--paper);
+    border: 2px solid var(--brown-deep);
+    border-radius: 6px;
+    padding: 20px 24px 22px;
+    box-shadow: 4px 4px 0 rgba(90,56,32,0.3);
+  }
+
+  .essay .e-date{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--brown-mid);
+    letter-spacing: 0.04em;
+  }
+
+  .essay h3{
+    margin: 4px 0 10px;
+    font-size: 18px;
+    color: var(--brown-deep);
+    letter-spacing: 0.02em;
+  }
+
+  .essay p{
+    margin: 0;
+    font-size: 15px;
+    color: var(--ink-soft);
+  }
+
+  .essay p + p{ margin-top: 0.9em; }
+
+  .bottom-gap{ height: 60px; }
+
+  /* ---------- Footer (shared) ---------- */
+
+  footer{
+    padding: 50px 6vw 40px;
+    background: var(--brown-deep);
+    color: var(--paper-dim);
+  }
+
+  .footer-grid{
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 40px;
+  }
+
+  footer h3{
+    font-size: 14px;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.06em;
+    color: var(--brown-light);
+    margin: 0 0 14px;
+  }
+
+  .contact-form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .contact-form input,
+  .contact-form textarea{
+    background: rgba(246,239,220,0.08);
+    border: 1px solid rgba(246,239,220,0.3);
+    border-radius: 3px;
+    padding: 9px 11px;
+    color: var(--paper);
+    font-family: 'Shippori Mincho', serif;
+    font-size: 14px;
+  }
+
+  .contact-form textarea{ resize: vertical; min-height: 70px; }
+
+  .contact-form button{
+    align-self: flex-start;
+    background: var(--brown-light);
+    color: var(--brown-deep);
+    border: none;
+    border-radius: 3px;
+    padding: 9px 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+
+  .contact-form button:hover{ background: #dcb27f; }
+
+  .notice{
+    font-size: 12.5px;
+    line-height: 1.8;
+    color: rgba(246,239,220,0.65);
+    margin: 0 0 20px;
+  }
+
+  .hub-link{
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    color: var(--paper);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(246,239,220,0.5);
+    padding-bottom: 1px;
+  }
+
+  .foot-bottom{
+    max-width: 900px;
+    margin: 34px auto 0;
+    padding-top: 18px;
+    border-top: 1px solid rgba(246,239,220,0.2);
+    font-size: 11.5px;
+    font-family: 'JetBrains Mono', monospace;
+    color: rgba(246,239,220,0.5);
+    text-align: center;
+  }
+
+  @media (max-width: 720px){
+    .shelf{ grid-template-columns: 1fr 1fr; }
+    .koma-panels{ grid-template-columns: 1fr 1fr; }
+    .footer-grid{ grid-template-columns: 1fr; }
+    nav{ order: 3; width: 100%; justify-content: center; flex-wrap: wrap; }
+  }
+
+  @media (max-width: 460px){
+    .shelf{ grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="brand" href="index.html">
+    <span class="brand-tile">Gt</span>
+    <span class="brand-name">元素手帖</span>
+  </a>
+  <nav>
+    <a href="index.html">index</a>
+    <a href="blog.html">blog</a>
+    <a class="current" href="column.html">column</a>
+    <a href="about.html">about</a>
+  </nav>
+</header>
+
+<div class="page-head">
+  <span class="eyebrow-tile">No. 03 / Co</span>
+  <h1>四コマ・小論</h1>
+  <p>化学にまつわる漫画やイラスト、そして軽い読み物の棚です。</p>
+</div>
+
+<!-- ========== 特集ページへのリンク ========== -->
+<section class="section" style="padding-bottom:0;">
+  <a class="report-link" href="report1.html">
+    <div class="report-tile">
+      <div class="r-no">No. 05</div>
+      <div class="r-sym">Nt</div>
+    </div>
+    <div class="report-body">
+      <div class="r-label">report1.html</div>
+      <p class="r-title">化学記号ノート</p>
+      <p class="r-desc">化学で出てくる記号をまとめた特集ページです。</p>
+    </div>
+    <div class="report-arrow">→</div>
+  </a>
+</section>
+
+<!-- ========== 漫画・イラスト ========== -->
+<section class="section">
+  <h2 class="section-title"><span class="tag">A</span>漫画・イラスト</h2>
+
+  <div class="shelf">
+    <div class="work">
+      <div class="thumb">ここにイラスト<br>(imgタグに差し替え)</div>
+      <div class="w-title">元素記号を擬人化してみた</div>
+      <div class="w-meta">2026.09.07</div>
+    </div>
+    <div class="work">
+      <div class="thumb">ここにイラスト<br>(imgタグに差し替え)</div>
+      <div class="w-title">ビーカーとフラスコのお茶会</div>
+      <div class="w-meta">2026.09.03</div>
+    </div>
+    <div class="work">
+      <div class="thumb">ここにイラスト<br>(imgタグに差し替え)</div>
+      <div class="w-title">周期表の覚え方メモ</div>
+      <div class="w-meta">2026.08.30</div>
+    </div>
+  </div>
+
+  <div class="koma-wrap">
+    <div class="koma-head">
+      <span class="k-title">【四コマ】モル計算のなぞ</span>
+      <span class="k-meta">2026.09.05</span>
+    </div>
+    <div class="koma-panels">
+      <div class="panel">1</div>
+      <div class="panel">2</div>
+      <div class="panel">3</div>
+      <div class="panel">4</div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 小論 ========== -->
+<section class="section">
+  <h2 class="section-title"><span class="tag">B</span>小論</h2>
+
+  <div class="essays">
+
+    <article class="essay">
+      <div class="e-date">2026.09.07</div>
+      <h3>周期表は、世界の名簿だと思う</h3>
+      <p>周期表を最初に見たとき、ただの暗記の表だと思っていました。けれど縦の列に性質の似た元素が並んでいることを知ると、急に名簿のように見えてきます。同じクラスの子は性格が似ていて、隣の席の子とは少しずつ違う。そんなふうに読むと、並び順にも理由があるのだとわかってきました。</p>
+      <p>理由があるものは、覚えるというより、納得できます。まずは族ごとにお気に入りの元素を一つ決めて、その子を軸に周りを眺めていくところから始めるつもりです。</p>
+    </article>
+
+    <article class="essay">
+      <div class="e-date">2026.09.01</div>
+      <h3>単位を書く、という小さな習慣</h3>
+      <p>計算問題で間違えるたびに、答えの数字そのものより、単位を書き忘れていたことが原因だったと気づきます。mol、g、L。たった一文字の違いで、答えはまったく別の意味になってしまいます。</p>
+      <p>数字は結果で、単位はその数字が何を指しているかの説明です。説明のない結果は、計算した本人にもあとで読めなくなります。だからこれからは、途中式にも必ず単位を書くことにしました。</p>
+    </article>
+
+  </div>
+</section>
+
+<div class="bottom-gap"></div>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <h3>CONTACT</h3>
+      <form class="contact-form" action="https://formspree.io/f/maqvpvoz" method="POST">
+        <input type="text" name="name" placeholder="お名前" required>
+        <input type="email" name="email" placeholder="メールアドレス" required>
+        <textarea name="message" placeholder="メッセージ" required></textarea>
+        <button type="submit">送信する</button>
+      </form>
+    </div>
+    <div>
+      <h3>NOTICE</h3>
+      <p class="notice">本サイトに掲載する文章・イラスト・漫画等のコンテンツについて、生成AIモデルの学習データとしての使用を固く禁じます。</p>
+      <h3>LINK</h3>
+      <a class="hub-link" href="#">Azalea Creative Room</a>
+    </div>
+  </div>
+  <div class="foot-bottom">© 元素手帖 — Azalea Creative Room</div>
+</footer>
+
+</body>
+</html>
